@@ -1,8 +1,14 @@
 <template>
   <div>
-    <button v-bind:title="title">Hover over me</button>
+    <h2>All Tasks</h2>
+    <ul>
+      <li v-for="task in tasks" v-text="task.description"></li>
+    </ul>
 
-    <button :disabled="isLoading" @click="toggle" :class="{'is-loading':isLoading }">Click me!</button>
+    <h2>Incompleted Tasks</h2>
+    <ul>
+      <li v-for="task in incompleteTasks" v-text="task.description"></li>
+    </ul>
   </div>
 </template>
 
@@ -11,21 +17,23 @@ export default {
   name: "HelloWorld",
   data() {
     return {
-      isLoading: false,
-      title: "Now the title is beign set through javascript"
+      tasks: [
+        { description: "Go to store", completed: true },
+        { description: "Finish screen cast", completed: false },
+        { description: "Make donation", completed: false },
+        { description: "Clear inbox", completed: false },
+        { description: "Make dinner", completed: false },
+        { description: "Clear room", completed: true }
+      ]
     };
   },
-  methods: {
-    toggle() {
-      this.isLoading = !this.isLoading;
+  computed: {
+    incompleteTasks() {
+      return this.tasks.filter(task => !task.completed);
     }
   }
 };
 </script>
 
 <style scoped>
-.is-loading {
-  background: red;
-  color: white;
-}
 </style>
