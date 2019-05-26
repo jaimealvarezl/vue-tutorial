@@ -1,34 +1,31 @@
 <template>
   <div>
-    <ul>
-      <li v-for="name in names" v-text="name"></li>
-    </ul>
+    <button v-bind:title="title">Hover over me</button>
 
-    <input type="text" v-model="newName">
-    <button @click="addName">Add Name</button>
+    <button :disabled="isLoading" @click="toggle" :class="{'is-loading':isLoading }">Click me!</button>
   </div>
 </template>
 
 <script>
 export default {
   name: "HelloWorld",
-  props: {
-    msg: String
-  },
   data() {
-    return { names: ["joe", "mary", "jane", "jack"], newName: "Mary" };
+    return {
+      isLoading: false,
+      title: "Now the title is beign set through javascript"
+    };
   },
   methods: {
-    addName() {
-      this.names.push(this.newName);
-      this.newName = "";
+    toggle() {
+      this.isLoading = !this.isLoading;
     }
-  },
-  mounted() {
-    console.log("Mounted");
   }
 };
 </script>
 
 <style scoped>
+.is-loading {
+  background: red;
+  color: white;
+}
 </style>
